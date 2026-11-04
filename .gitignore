@@ -1,0 +1,68 @@
+# ===== FERRAMENTAS AI / ANÁLISE =====
+.opencode/
+graphify-out/
+
+# ===== BUILD E DEPENDÊNCIAS =====
+**/target/
+**/node_modules/
+**/.gradle/
+**/dist/
+**/build/
+
+# ===== IDEs =====
+.idea/
+*.iml
+*.iws
+.project
+.classpath
+.settings/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===== LOGS E TEMP =====
+**/*.log
+**/logs/
+**/tmp/
+**/temp/
+**/.cache/
+**/.temp/
+
+# ===== CONFIGURAÇÕES LOCAIS (dados sensíveis) =====
+**/.env
+**/.env.*
+!**/.env.example
+**/config/local.properties
+**/application-local.properties
+**/application-overrides.properties
+
+# ===== ARQUIVOS COMPILADOS =====
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ===== TESTES E REPORTS =====
+**/test-results/
+**/surefire-reports/
+**/jacoco/
+**/coverage/
+
+# ===== BACKEND JAVA =====
+**/target/npmlist.json
+
+# ===== FRONTEND =====
+**/frontend/dist/
+**/frontend/node_modules/
+**/.vite/
+**/.parcel-cache/
+
+# ===== ADMIN =====
+**/admin/target/
