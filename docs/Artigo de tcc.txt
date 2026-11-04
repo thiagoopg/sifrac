@@ -1,0 +1,245 @@
+﻿Atividades Complementares
+Trabalho de Conclusão do Curso de
+Tecnologia em Sistemas Para Internet
+
+
+Thiago Adriel Oliveira de Lima
+Orientador(a): Marcelo Augusto Rauh Schmitt
+
+
+¹Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul (IFRS)
+Campus Porto Alegre
+Av Cel Vicente, 281, Porto Alegre – RS – Brasil 
+thiago.a.o.lima@gmail.com, marcelo.schmitt@poa.ifrs.edu.br
+
+
+
+
+Resumo
+As Atividades Complementares constituem um requisito curricular obrigatório nos cursos de graduação no Brasil, regulamentadas pelas Diretrizes Curriculares Nacionais e pela Lei de Diretrizes e Bases da Educação Nacional. Atualmente, o gerenciamento desse processo no Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul - Campus Porto Alegre ocorre de forma manual, restringindo o período de envio das solicitações, dificultando a comunicação entre alunos e coordenadores e aumentando o tempo de análise e validação das atividades. A ausência de um sistema dedicado a esse fluxo impede que os estudantes acompanhem o andamento de seus processos em tempo real, gerando retrabalho e inconsistências nas informações registradas. Diante desse cenário, este artigo propõe o desenvolvimento de uma plataforma web para o gerenciamento das Atividades Complementares em cursos de graduação, com suporte a múltiplos campi dos Institutos Federais. A solução visa a permitir o envio de solicitações a qualquer momento do semestre letivo, o acompanhamento do processo por todas as partes envolvidas e a automatização das validações, reduzindo o esforço administrativo e melhorando a transparência do fluxo. A proposta se diferencia das soluções existentes pelo suporte multi-campus e pela maior integração entre os atores do processo.
+Palavras-chave: atividades complementares; sistema web; gerenciamento acadêmico; institutos federais; automação de processos.
+1 INTRODUÇÃO
+A legislação brasileira atual, determina que os cursos superiores tenham em sua carga horária o que é comumente chamado de Atividades Complementares.  Correspondem a atividades realizadas em espaços diferentes da sala de aula. Cada curso, em seu projeto pedagógico, regula qual a carga horária mínima necessária e que atividades são consideradas válidas. De alguma forma, os alunos devem atestar que realizaram determinadas atividades e, uma vez que tenham cumprido a carga horária mínima, são aprovados em um componente curricular correspondente.
+Atualmente, o Instituto Federal de Educação Ciência e Tecnologia do Rio Grande do Sul (IFRS) - Campus Porto Alegre utiliza o calendário acadêmico para administrar os pedidos de certificação das Atividades Complementares. O período engloba boa parte do semestre. A concepção por trás da norma publicada (https://poa.ifrs.edu.br/index.php/duvidas) é de que um processo é aberto quando o aluno faz a solicitação da certificação. Todavia, tal procedimento traz em si alguns problemas associados ao fato de que os alunos não têm acesso eletrônico aos seus processos durante a tramitação.
+Com a utilização do sistema Sistema Integrado de Patrimônio, Administração e Contratos (SIPAC), o aluno não obtém acesso ao processo digital em nenhum momento. Isto faz o mesmo enviar um e-mail ao coordenador de curso referente ao andamento do processo que, por sua vez, necessita manter um controle próprio para poder responder o aluno. Cada coordenador acaba criando seu próprio método de controle. No Curso Superior de Tecnologia em Sistemas para Internet é utilizada uma tabela compartilhada entre coordenador e alunos para visualizar a quantidade de horas faltantes para a conclusão do total requerido e demais informações que possam necessitar.
+Outra questão é que o aluno não consegue acrescentar novos documentos uma vez que o processo foi aberto. Novamente, ele precisa enviar mensagem ao coordenador do curso para que este faça o acréscimo e recalcule as horas. Ressalta-se que essa é uma necessidade já que um aluno não deveria abrir o processo somente quando considera que possui todos os documentos no final do curso. Tal prática pode levar à surpresa de que algumas ações consideradas por ele como passíveis de certificação não são.
+        Diante deste problema existente no Campus Porto Alegre do IFRS, o objetivo deste trabalho é desenvolver uma plataforma web com o objetivo de gerenciar o registro das Atividades Complementares, permitindo o acompanhamento do processo por ambas as partes, seja estudante ou docente, melhorando a comunicação entre as partes interessadas. Com o maior foco na automatização dos processos, análises e validações, permitirá a solicitação em qualquer momento do semestre e visualização da situação do processo em tempo real.
+2 FUNDAMENTAÇÃO TEÓRICA
+Para fundamentar a realização deste trabalho, foi realizada uma pesquisa com os demais institutos em relação a organização e fluxo de trabalho das Atividades Complementares, deixando claro a necessidade de um sistema automatizado para o fluxo de trabalho, otimizando tempo e melhorando a comunicação entre aluno, administração, docente e coordenador.
+2.1 Atividades Complementares
+As Atividades Complementares constituem um componente curricular presente em diversos cursos de graduação brasileiros, sendo regulamentadas pelas Diretrizes Curriculares Nacionais (DCNs) de cada área de formação (BRASIL, 2003). Seu objetivo é complementar a formação acadêmica dos estudantes por meio da participação em atividades que contribuam para seu desenvolvimento profissional, científico, cultural e social, reconhecendo competências e habilidades adquiridas fora da sala de aula.
+Entre as atividades normalmente aceitas pelas instituições de ensino encontram-se cursos de extensão, participação em eventos, projetos de pesquisa, monitorias, publicações científicas, atividades de extensão e experiências profissionais relacionadas à área de formação. Para que essas atividades sejam contabilizadas, é necessário que o estudante apresente documentação comprobatória e que a instituição realize a validação conforme os critérios estabelecidos em seus regulamentos internos.
+Nos Institutos Federais, as Atividades Complementares representam um requisito obrigatório para os cursos de graduação, estando relacionadas à Lei de Diretrizes e Bases da Educação Nacional (LDB - Lei nº 9.394/96) e às Diretrizes Curriculares Nacionais de cada curso. O gerenciamento dessas atividades exige controle da carga horária, armazenamento de documentos e acompanhamento dos processos de validação. Quando realizado manualmente, esse processo pode gerar dificuldades relacionadas à comunicação entre os envolvidos, aumento do tempo de análise e maior probabilidade de inconsistências nas informações registradas.
+Sancionada em abril de 2023, a Lei nº 14.560/2023 (BRASIL, 2023)  alterou o artigo 70 da LDB e passou a considerar despesas relacionadas às Atividades Complementares como parte da manutenção e desenvolvimento do ensino. Essa mudança amplia a possibilidade de investimento das instituições em soluções que auxiliem na automatização e otimização desses processos, contribuindo para uma gestão mais eficiente e alinhada às exigências legais.
+
+
+2.2 Sistemas de Informação Acadêmicos
+De acordo com Laudon e Laudon (2023), um sistema de informação pode ser definido como um conjunto de componentes inter-relacionados que coletam, processam, armazenam e distribuem informações com o objetivo de apoiar a tomada de decisão, a coordenação e o controle em uma organização. Nesse contexto, os sistemas de informação acadêmicos são ferramentas utilizadas pelas instituições de ensino para automatizar e organizar processos administrativos e pedagógicos. Esses sistemas permitem o gerenciamento de informações relacionadas aos estudantes, docentes, disciplinas, matrículas, notas e demais atividades acadêmicas.
+A utilização de sistemas informatizados contribui para a redução de processos manuais, aumento da confiabilidade dos dados e melhoria da comunicação entre os diferentes setores da instituição. Além disso, possibilita maior transparência e rastreabilidade das informações, permitindo que estudantes e servidores acompanhem o andamento dos processos de forma mais eficiente.
+No contexto das Atividades Complementares, os sistemas acadêmicos podem auxiliar no recebimento de solicitações, análise documental, controle de carga horária e acompanhamento do status dos processos, reduzindo o esforço administrativo e aumentando a eficiência operacional.
+2.3 Framework Spring Boot
+O Spring Boot é um framework baseado na plataforma Java que simplifica o desenvolvimento de aplicações corporativas(SPRING, 2023). Seu principal objetivo é reduzir a complexidade de configuração presente no ecossistema Spring, fornecendo mecanismos de configuração automática e integração entre diversos componentes.
+O framework é amplamente utilizado no desenvolvimento de APIs REST devido à sua facilidade de implementação, suporte à injeção de dependências, gerenciamento de transações e integração com mecanismos de persistência de dados. Além disso, o Spring Boot disponibiliza recursos que contribuem para a construção de aplicações escaláveis e de fácil manutenção, tornando-se uma das principais tecnologias utilizadas no desenvolvimento de sistemas web modernos.
+2.4 Persistência de Dados com JPA
+A Java Persistence API (JPA) é uma especificação da plataforma Java destinada ao mapeamento objeto-relacional (JAKARTA EE, 2024). Seu objetivo é permitir que os dados manipulados pela aplicação sejam armazenados em bancos de dados relacionais por meio de entidades que representam objetos do domínio do sistema.
+A utilização da JPA reduz a necessidade de escrita manual de consultas SQL, permitindo que operações de criação, atualização, remoção e consulta sejam realizadas de forma mais simples e organizada. Quando utilizada em conjunto com o Spring Boot, a JPA facilita a implementação da camada de persistência, contribuindo para a separação das responsabilidades e para a manutenção do código-fonte.
+Neste trabalho, em conjunto com Framework Spring Boot, facilitará futuras manutenções, legibilidade do código e futuras implementações no decorrer de alguma mudança no processo de atividades complementares no IFRS.
+3 TRABALHOS RELACIONADOS
+Este trabalho tem um contexto bem específico: o IFRS e mais especificamente o campus Porto Alegre que utiliza o SIPAC como controle de processos e o SIGAA[a] como sistema para registro de conceitos. Desta forma, não foi feita busca por outros sistemas acadêmicos porque não há possibilidade de substituir essas ferramentas. A solução passa pela continuidade do uso do SIPAC e do SIGAA.
+Realizou-se uma busca por soluções ad-hoc, desenvolvidas em trabalhos de conclusão de curso. Foi utilizado o Google Acadêmico com a busca de “Atividades Complementares” AND “TCC” e dentro do repositório IFRS foi utilizado somente “Atividades Complementares”, ambas buscando a partir de 2016.
+Foram coletadas informações com docentes e alunos do IFRS, através de uma consulta informal sobre experiência com sistemas relacionados ou com mesma finalidade, buscando saber quais são eles e suas dificuldades na experiência com cada um destes sistemas usados pelo entrevistado, contemplando sete participantes.
+A partir dessas coletas, foi possível identificar as principais limitações que os docentes e alunos enfrentam no momento de realizar os processos acadêmicos sem o auxílio de um sistema automatizado próprio dedicado para este processo.
+3.1 Trabalho 3 - GAC - Sistema para Gerenciamento das Atividades Complementares
+O Sistema para Gerenciamento das Atividades Complementares (GAC) foi desenvolvido como Trabalho de Conclusão de Curso de Tecnologia em Sistemas para Internet da Universidade Tecnológica Federal do Paraná (UTFPR). O projeto teve como objetivo oferecer uma solução específica para o gerenciamento das atividades complementares dos estudantes.
+De acordo com Miguel e Franco (2018), a inexistência de um sistema dedicado a esse processo representava uma dificuldade enfrentada pela instituição. Contudo, não foram encontradas evidências de que a solução proposta tenha sido efetivamente implantada, visto que o portal institucional disponibiliza apenas documentos normativos e formulários para solicitação, sem qualquer acesso ao sistema descrito no trabalho.
+Neste trabalho foi definido um fluxo com foco nas necessidades específicas do contexto da UTFPR, aberto a outras organizações públicas e privadas, mas com falta do código aberto para fazer a implementação dentro dos ambientes do IFRS.
+
+
+3.2 Trabalho 4 - IFRS - SWGA - Sistema Web para Gerenciamento de Atividades Complementares
+O SWGA foi apresentado por Machado (2022 apud BERNARDONI, 2023) ao Instituto Federal do Rio Grande do Sul (IFRS) – Campus Porto Alegre, com a finalidade de propor um sistema voltado ao gerenciamento das atividades complementares.
+Entre as funcionalidades previstas estavam o gerenciamento de categorias de atividades, o acompanhamento dos processos de solicitação, o controle dos limites de horas aproveitadas e a participação da coordenação do curso na análise das solicitações. Apesar da abrangência da proposta, o projeto não avançou para a fase de implementação, permanecendo apenas como uma solução conceitual.
+3.3 Trabalho 5 - PWAC-IFRS Plataforma Web para o Gerenciamento de Atividades Acadêmicas Complementares de Cursos de Graduação
+O PWAC-IFRS foi desenvolvido por Bernardoni (2023) como Trabalho de Conclusão do Curso de Tecnologia em Sistemas para Internet do IFRS – Campus Porto Alegre. O projeto teve como objetivo criar uma plataforma web capaz de gerenciar, intermediar e validar os processos relacionados ao aproveitamento das Atividades Acadêmicas Complementares (AC) em cursos de graduação.
+A solução proposta permite que os estudantes façam solicitações de aproveitamento de horas pela plataforma, enquanto os coordenadores de curso podem analisar, aprovar ou rejeitar os pedidos submetidos. O sistema foi desenvolvido utilizando a linguagem Java, banco de dados PostgreSQL e modelagem UML, tendo sua interface idealizada por meio da tecnologia JSF (JavaServer Faces).
+Entre os principais diferenciais identificados estão o suporte ao gerenciamento das horas de atividades complementares, a submissão de documentação comprobatória pelos estudantes, o acompanhamento dos processos e a possibilidade de utilização da plataforma em múltiplos cursos simultaneamente.
+Além disso, o sistema foi disponibilizado como software de código aberto, permitindo adaptações para diferentes instituições de ensino superior.
+Apesar de apresentar funcionalidades relevantes para o gerenciamento das atividades complementares, o trabalho foi desenvolvido com foco inicial no curso de Tecnologia em Sistemas para Internet do IFRS – Campus Porto Alegre. Dessa forma, existe espaço para evolução da proposta, especialmente em aspectos relacionados à escalabilidade, integração com sistemas institucionais e ampliação dos recursos de comunicação e acompanhamento do fluxo pelos diferentes atores envolvidos no processo.
+Este foi o mais próximo de solucionar o problema do IFRS, contudo, o mesmo não entregava as necessidades totais do último orientador que foi entrevistado, e seu código-fonte não está disponível publicamente para implementar e exercer o propósito definido.
+Por fim, o Quadro 1 apresenta uma comparação entre os sistemas analisados e a plataforma proposta neste trabalho. A comparação considera apenas as funcionalidades identificadas como comuns entre as soluções estudadas, permitindo destacar os diferenciais da proposta desenvolvida.
+
+
+Quadro 1 - Comparação entre os sistemas
+Sistemas
+	SGAA 
+	ACG 
+	GAC 
+	SWGA 
+	PWAC
+IFRS
+	Sistema Proposto 
+	Emissão de relatórios 
+	
+
+	
+
+	X
+	X
+	X
+	X
+	Controle de permissões de acesso por usuário 
+	X
+	X
+	X
+	X
+	X
+	X
+	Acesso a partir da Internet 
+	X
+	X
+	X
+	X
+	X
+	X
+	Calcula as horas de AC 
+	
+
+	X
+	X
+	X
+	X
+	X
+	Consultar estado do processo de AC
+	
+
+	X
+	X
+	X
+	X
+	X
+	Disponível ao IFRS 
+	
+
+	
+
+	
+
+	X
+	
+
+	X
+	Multi-campus
+	
+
+	
+
+	
+
+	X
+	
+
+	X
+	Alertas e notificações
+	
+
+	
+
+	
+
+	
+
+	
+
+	X
+	Fonte: Elaborado pelo Autor (2026)
+
+
+4 METODOLOGIA
+4.1 Percurso Metodológico
+O desenvolvimento deste trabalho teve como ponto de partida uma pesquisa exploratória sobre o processo de gerenciamento das Atividades Complementares nos cursos de graduação dos Institutos Federais, contemplando o IFRS Porto Alegre e IFRS Alvorada. Inicialmente, foi realizado um levantamento do fluxo sobre Atividades Complementares, sistemas de informação acadêmicos e soluções tecnológicas aplicadas à automatização de processos existentes aplicados por cada instituição.
+Em seguida, foram analisados trabalhos acadêmicos anteriores relacionados ao contexto proposto por este artigo. Essa análise permitiu identificar funcionalidades relevantes, limitações existentes e oportunidades de melhoria para a proposta apresentada neste trabalho.
+Com base nas informações obtidas na fundamentação teórica e nos trabalhos relacionados, foi realizado o levantamento dos requisitos considerando as necessidades observadas no fluxo atual utilizado pelo IFRS, com foco principal no campus Porto Alegre, especialmente em aspectos relacionados ao envio de documentação e seu prazo pré-definido, o acompanhamento de solicitações e pedidos pendentes, comunicação entre os docentes envolvidos e controle da carga horária das atividades complementares ao decorrer de cada pedido.
+4.2 Desenvolvimento da Solução
+A solução proposta consiste em uma plataforma web destinada ao gerenciamento das Atividades Complementares em cursos de graduação. O sistema tem como objetivo centralizar as solicitações realizadas pelos estudantes, automatizar etapas do processo de validação e fornece mecanismos de acompanhamento para alunos, coordenadores e demais servidores envolvidos.
+Entre as funcionalidades previstas estão o cadastro e gerenciamento de usuários, realização dos pedidos de atividades complementares, análise e validação das solicitações, acompanhamento do andamento dos processos internos, controle automático da carga horária aproveitada e demais funcionalidades que serão desenvolvidas de acordo com as necessidades do sistema e levantamento futuro.
+Além disso, o sistema busca reduzir a dependência de planilhas compartilhadas e comunicações realizadas exclusivamente por e-mail, melhorando a transparência para os alunos, a remoção da dependência de um prazo e eficiência nas demandas para todos os usuários do sistema.
+4.3 Tecnologias Utilizadas
+Considerando a necessidade do sistema em volta da escalabilidade ara novos processos acadêmicos e manutenção futura facilitada por bolsistas, optou-se pela utilização de uma arquitetura baseada em microsserviços. Essa abordagem permite que novos módulos possam ser desenvolvidos e integrados futuramente, pensando na expansão da solução para outros processos acadêmicos além das Atividades Complementares contempladas por este artigo.
+O backend será desenvolvido utilizando o framework Spring Boot, devido ao seu foco e facilidade em APIs REST com suas dependências nativas da própria empresa. A escolha dessa tecnologia também se deve à facilidade de configuração, integração entre componentes e suporte ao desenvolvimento de aplicações escaláveis. Além disso, por ser um framework popular e sólido no mercado, contém documentação ampla e de fácil acesso para mudanças e atualizações futuras.
+Para a persistência dos dados será utilizada a Java Persistence API (JPA), responsável pelo mapeamento objeto-relacional entre as entidades da aplicação e o banco de dados. Já integrado com o Spring Boot com uma dependência nativa do próprio framework chamada Spring Data JPA.
+O Frontend será desenvolvido utilizando Vue.js em conjunto com a Building tool Vite, tecnologias escolhidas para simplificar o desenvolvimento, desempenho e facilidade de integração com serviços REST.
+Para o armazenamento das informações será utilizado o banco de dados relacional PostgreSQL, escolhido por sua robustez e confiabilidade por ser um dos bancos mais sólidos do mercado.
+Durante o desenvolvimento também será utilizado o sistema de controle de versão baseados em Git, permitindo o gerenciamento das alterações realizadas no projeto ao longo de sua construção no GitHub.
+4.4 Validação
+A validação da solução será realizada após a implementação das funcionalidades previstas. O processo envolverá a execução de cenários de uso representando as principais atividades desempenhadas pelos usuários do sistema, incluindo estudantes, coordenadores e servidores.
+Serão avaliados aspectos relacionados ao funcionamento das funcionalidades, usabilidade da interface, acompanhamento do fluxo de solicitações e eficiência do processo em comparação ao modelo atualmente utilizado pela instituição.
+Os resultados obtidos durante essa etapa serão utilizados para identificar possíveis melhorias e verificar se a solução atende aos objetivos definidos para o trabalho. 
+5 CONCLUSÕES PARCIAIS E CRONOGRAMA
+Acredita-se que este trabalho poderá sanar as dificuldades de alunos e docentes dentro do IFRS, viabilizando a superação das necessidades que foram coletadas dos entrevistados.
+        O cronograma constante no Quadro 2 apresenta as atividades previstas para a finalização do software e do artigo no segundo semestre de 2026.
+
+
+Quadro 2 - Cronograma definido para TCC 2
+Atividade
+	Jul
+	Ago
+	Set
+	Out
+	Nov
+	Escrita do TCC 2 
+	X
+	X
+	X
+	X
+	X
+	Implementação do backend 
+	X
+	X
+	
+
+	
+
+	
+
+	Implementação do frontend 
+	
+
+	X
+	X
+	
+
+	
+
+	Testes e validação 
+	
+
+	X
+	X
+	
+
+	
+
+	Revisão final e entrega 
+	
+
+	
+
+	
+
+	X
+	X
+	Fonte: Elaborado pelo autor (2026).
+
+
+        Além da complementação de buscas por outros trabalhos relacionados, a principal tarefa diz respeito à criação do software propriamente dito e sua validação. Ao final, pretende-se ter um produto que solucione o problema apresentado.
+
+
+Referências
+BERNARDONI, Airton da Rocha. Plataforma web para o gerenciamento de Atividades Acadêmicas Complementares de Cursos de Graduação. 2023. Trabalho de Conclusão de Curso (Tecnologia em Sistemas para Internet) – Instituto Federal do Rio Grande do Sul, Campus Porto Alegre, Porto Alegre, 2023. Disponível em: https://dspace.ifrs.edu.br/xmlui/handle/123456789/980. Acesso em: 10 maio 2026.
+BRASIL. Lei nº 14.560, de 26 de abril de 2023. Altera a Lei nº 9.394, de 20 de dezembro de 1996 (Lei de Diretrizes e Bases da Educação Nacional), para inserir, como despesa de manutenção e desenvolvimento do ensino, aquela realizada com atividades curriculares complementares. Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/L14560.htm. Acesso em: 21 jun. 2026.
+BRASIL. Conselho Nacional de Educação. Câmara de Educação Superior. Parecer CNE/CES nº 67, de 11 de março de 2003. Referencial para as Diretrizes Curriculares Nacionais dos Cursos de Graduação. Brasília, DF: Ministério da Educação, 2003. Disponível na listagem de atos em:https://www.gov.br/mec/pt-br/cne/parecer-ces-2003. O arquivo direto em PDF pode ser baixado em:https://www.gov.br/mec/pt-br/cne/pdf/pareceres-do-cne/ces/2003/pces067_03.pdf. Acesso em: 21 jun. 2026.
+JAKARTA EE. Jakarta Persistence 3.2 Specification.: Eclipse Foundation, 2024. Disponível em: https://jakarta.ee/specifications/persistence/3.2/. Acesso em: 21 jun. 2026.
+LAUDON, Kenneth C.; LAUDON, Jane P. Sistemas de informação gerenciais: administrando a empresa digital. 17. ed. São Paulo: Pearson; Porto Alegre: Bookman, 2023.
+MIGUEL, Marlon; FRANCO, Mateus Henrique. Sistema para gerenciamento das atividades complementares. 2018. Trabalho de Conclusão de Curso (Tecnologia em Sistemas para Internet) – Universidade Tecnológica Federal do Paraná, UTFPR. Disponível em:https://repositorio.utfpr.edu.br/jspui/handle/1/15669. Acesso em: 10 maio 2026.
+UNIVERSIDADE FEDERAL DO RIO GRANDE DO NORTE. SIGAA — Sistema Integrado de Gestão de Atividades Acadêmicas: visão geral. Natal, [s.d.]. Disponível em: https://docs.info.ufrn.br/doku.php?id=suporte:sigaa:visao_geral. Acesso em: 21 Jun. 2026
+SPRING. Spring Boot Reference Documentation. 2023. Disponível em: https://docs.spring.io/spring-boot/docs/3.1.0/reference/html/. Acesso em: 13 maio 2026.
+[a]Aqui tem de ver qual o nome correto do nosso sistema e se tem uma página dos autores do sistema.
