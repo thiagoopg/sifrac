@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #172938;
+  --color-card: #ffffff;
+  --color-card-foreground: #172938;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #172938;
+
+  /* IFRS — cores institucionais oficiais (favicon + tema WordPress) */
+  --color-ifrs-green:        #399c3c;
+  --color-ifrs-green-dark:   #195128;
+  --color-ifrs-green-light:  #18A54B;
+  --color-ifrs-services-bar: #00420C;
+  --color-ifrs-red:          #ca1e25;
+  --color-ifrs-yellow:       #F7C514;
+  --color-ifrs-orange:       #F18F20;
+  --color-ifrs-blue:         #3E67B1;
+  --color-ifrs-navy:         #21376C;
+  --color-ifrs-gray-bg:      #ECEDF1;
+  --color-ifrs-text:         #172938;
+  --color-ifrs-text-muted:   #454546;
+
+  /* Legacy primary → replace blue with IFRS green */
+  --color-primary:           #195128;
+  --color-primary-foreground: #fafafa;
+  --color-secondary:         #ECEDF1;
+  --color-secondary-foreground: #195128;
+  --color-muted:             #f0fdf4;
+  --color-muted-foreground:  #454546;
+  --color-accent:            #f0fdf4;
+  --color-accent-foreground: #195128;
+  --color-destructive:       #ca1e25;
+  --color-destructive-foreground: #fafafa;
+  --color-border:            #e2e8f0;
+  --color-input:             #e2e8f0;
+  --color-ring:              #195128;
+
+  --color-chart-1: #399c3c;
+  --color-chart-2: #3E67B1;
+  --color-chart-3: #18A54B;
+  --color-chart-4: #F7C514;
+  --color-chart-5: #ca1e25;
+
+  --color-sidebar:           #195128;
+  --color-sidebar-foreground: #ffffff;
+  --color-sidebar-primary:   #195128;
+  --color-sidebar-primary-foreground: #ffffff;
+  --color-sidebar-accent:    rgba(255,255,255,0.1);
+  --color-sidebar-accent-foreground: #ffffff;
+  --color-sidebar-border:    rgba(255,255,255,0.15);
+  --color-sidebar-ring:      #399c3c;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}

@@ -1,0 +1,31 @@
+/**
+ * tsconfig para Cucumber BDD (CommonJS + ts-node)
+ * Diferente do tsconfig principal que usa ESNext/bundler.
+ */
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist-cucumber",
+    "noEmit": false
+  },
+  "include": [
+    "tests/bdd/**/*.ts",
+    "tests/pages/**/*.ts",
+    "tests/helpers/**/*.ts",
+    "tests/auth-fixtures.ts",
+    "tests/fixtures.ts",
+    "tests/page-objects.ts"
+  ],
+  "exclude": ["node_modules", "dist", "dist-cucumber"]
+}
