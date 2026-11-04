@@ -1,0 +1,57 @@
+# =====================================================
+# Configuracao externa de e-mail (opcional)
+# =====================================================
+# Copie este arquivo para:
+#   config/application.properties
+# e inicie a aplicacao com:
+#   SPRING_PROFILES_ACTIVE=prod java -jar hcomplementares.jar \
+#     --spring.config.additional-location=optional:file:./config/
+#
+# Este arquivo NAO deve ser versionado com credenciais reais.
+
+# --- SMTP institucional (exemplo STARTTLS 587) ---
+spring.mail.host=smtp.ifrs.edu.br
+spring.mail.port=587
+spring.mail.username=usuario.smtp@ifrs.edu.br
+spring.mail.password=TROQUE_ESTA_SENHA
+spring.mail.protocol=smtp
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.properties.mail.smtp.ssl.enable=false
+spring.mail.properties.mail.smtp.connectiontimeout=5000
+spring.mail.properties.mail.smtp.timeout=5000
+spring.mail.properties.mail.smtp.writetimeout=5000
+
+# --- Remetente e flags ---
+app.mail.from=no-reply@hcomplementares.ifrs.edu.br
+app.mail.enabled=true
+app.mail.avaliacao-aluno-enabled=true
+app.mail.resumo-pendencias-enabled=false
+
+# URL publica do frontend usada nos links dos e-mails
+app.mail.base-url=https://horascomplementares.ifrs.edu.br
+
+# Health check de e-mail no actuator
+management.health.mail.enabled=false
+
+# -----------------------------------------------------
+# SMTP com SSL direto (porta 465)
+# -----------------------------------------------------
+# spring.mail.port=465
+# spring.mail.properties.mail.smtp.starttls.enable=false
+# spring.mail.properties.mail.smtp.starttls.required=false
+# spring.mail.properties.mail.smtp.ssl.enable=true
+
+# -----------------------------------------------------
+# Desenvolvimento com Mailpit (docker compose up -d mailpit)
+# -----------------------------------------------------
+# spring.mail.host=localhost
+# spring.mail.port=1025
+# spring.mail.username=
+# spring.mail.password=
+# spring.mail.properties.mail.smtp.auth=false
+# spring.mail.properties.mail.smtp.starttls.enable=false
+# spring.mail.properties.mail.smtp.ssl.enable=false
+# app.mail.enabled=true
+# app.mail.avaliacao-aluno-enabled=true

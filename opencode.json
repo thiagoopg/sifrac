@@ -1,0 +1,21 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "tcc",
+  "plugin": [
+    ".opencode/plugins/graphify.js"
+  ],
+  "mcp": {
+    "graphify": {
+      "type": "local",
+      "command": [
+        "/home/thiagolima/.local/bin/graphify-mcp",
+        "--graph",
+        "/home/thiagolima/tcc/graphify-out/graph.json"
+      ]
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp"]
+    }
+  }
+}
