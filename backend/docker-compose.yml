@@ -1,7 +1,30 @@
 services:
+  # PostgreSQL para desenvolvimento local e produção
+  postgres:
+    image: postgres:16-alpine
+    container_name: sifrac-postgres
+
+    ports:
+      - "5432:5432"
+
+    environment:
+      POSTGRES_DB: sifrac
+      POSTGRES_USER: sifrac
+      POSTGRES_PASSWORD: sifrac123
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sifrac -d sifrac"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # LDAP local para desenvolvimento (opcional - production usa LDAP do IFRS)
   lldap:
     image: lldap/lldap:stable
-    container_name: hcomplementares-ldap
+    container_name: sifrac-ldap
 
     ports:
       - "127.0.0.1:3890:3890"
@@ -18,7 +41,7 @@ services:
   # SMTP local para desenvolvimento: captura os e-mails em http://localhost:8025
   mailpit:
     image: axllent/mailpit
-    container_name: hcomplementares-mailpit
+    container_name: sifrac-mailpit
 
     ports:
       - "1025:1025"
@@ -28,4 +51,5 @@ services:
       MP_MAX_MESSAGES: 500
 
 volumes:
+  postgres_data:
   lldap_data:

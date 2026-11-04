@@ -7,7 +7,7 @@
 
 INSERT INTO solicitacao_hora_complementar (
     aluno_id,
-    tipo_hora_id,
+    tipo_id,
     horas_solicitadas,
     titulo,
     horas_deferidas,
@@ -31,7 +31,7 @@ INSERT INTO solicitacao_hora_complementar (
 
 INSERT INTO solicitacao_hora_complementar (
     aluno_id,
-    tipo_hora_id,
+    tipo_id,
     horas_solicitadas,
     titulo,
     horas_deferidas,
