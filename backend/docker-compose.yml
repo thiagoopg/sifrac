@@ -1,0 +1,31 @@
+services:
+  lldap:
+    image: lldap/lldap:stable
+    container_name: hcomplementares-ldap
+
+    ports:
+      - "127.0.0.1:3890:3890"
+      - "127.0.0.1:17170:17170"
+
+    environment:
+      LLDAP_JWT_SECRET: "chave-jwt-apenas-para-desenvolvimento"
+      LLDAP_LDAP_USER_PASS: "senha123"
+      LLDAP_LDAP_BASE_DN: "dc=example,dc=com"
+
+    volumes:
+      - lldap_data:/data
+
+  # SMTP local para desenvolvimento: captura os e-mails em http://localhost:8025
+  mailpit:
+    image: axllent/mailpit
+    container_name: hcomplementares-mailpit
+
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+    environment:
+      MP_MAX_MESSAGES: 500
+
+volumes:
+  lldap_data:
