@@ -1,6 +1,11 @@
 # ===== FERRAMENTAS AI / ANÁLISE =====
 .opencode/
 graphify-out/
+.playwright-mcp/
+
+# ===== WINDOWS METADATA =====
+*:Zone.Identifier
+Thumbs.db
 
 # ===== BUILD E DEPENDÊNCIAS =====
 **/target/
@@ -21,7 +26,6 @@ graphify-out/
 *.swo
 *~
 .DS_Store
-Thumbs.db
 
 # ===== LOGS E TEMP =====
 **/*.log
