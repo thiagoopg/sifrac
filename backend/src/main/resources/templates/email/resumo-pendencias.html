@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo de pendências</title>
+</head>
+<body style="margin:0; padding:20px; background-color:#f5f6f8; font-family:Arial, Helvetica, sans-serif; color:#212529;">
+<div style="max-width:640px; margin:0 auto; background:#ffffff; border-radius:8px; padding:30px; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+
+    <h2 style="margin-top:0; color:#1c7ed6;">Solicitações aguardando avaliação</h2>
+
+    <p>Olá, <strong th:text="${coordenadorNome}">Coordenador</strong>,</p>
+
+    <p>
+        Há <strong th:text="${totalPendencias}">0</strong>
+        <span th:text="${totalPendencias == 1 ? 'solicitação pendente' : 'solicitações pendentes'}">solicitações pendentes</span>
+        de sua coordenação em <strong th:text="${dataReferencia}">data</strong>.
+    </p>
+
+    <table style="width:100%; border-collapse:collapse; margin:20px 0;">
+        <thead>
+        <tr>
+            <th style="text-align:left; padding:10px; border-bottom:2px solid #dee2e6;">Curso</th>
+            <th style="text-align:right; padding:10px; border-bottom:2px solid #dee2e6;">Pendentes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${pendenciasPorCurso}">
+            <td style="padding:10px; border-bottom:1px solid #e9ecef;" th:text="${item.key}">Curso</td>
+            <td style="padding:10px; border-bottom:1px solid #e9ecef; text-align:right;" th:text="${item.value}">0</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        Acesse o sistema para avaliar as solicitações:
+        <br>
+        <a th:href="${baseUrl + '/solicitacoes'}"
+           th:text="${baseUrl + '/solicitacoes'}"
+           style="color:#1c7ed6;">Abrir solicitações</a>
+    </p>
+
+    <hr style="border:none; border-top:1px solid #e9ecef; margin:25px 0;">
+
+    <p style="font-size:12px; color:#868e96; margin-bottom:0;">
+        Este é um e-mail automático do Sistema de Atividades Complementares do IFRS.
+        Você recebe esta mensagem porque é coordenador de curso.
+    </p>
+
+</div>
+</body>
+</html>

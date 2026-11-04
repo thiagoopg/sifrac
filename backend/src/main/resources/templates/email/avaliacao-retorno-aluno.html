@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Retorno da Solicitação</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;">
+<div style="max-width: 600px; margin: auto; background: white; border-radius: 8px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <h2 style="color: #2f9e44;" th:if="${status == 'DEFERIDO'}">Solicitação Deferida</h2>
+    <h2 style="color: #e03131;" th:if="${status == 'INDEFERIDO'}">Solicitação Indeferida</h2>
+    <h2 style="color: #1971c2;" th:if="${status != 'DEFERIDO' and status != 'INDEFERIDO'}">Retorno da Avaliação</h2>
+
+    <p>Olá, <strong th:text="${alunoNome}">Aluno</strong>,</p>
+
+    <p>Sua solicitação de horas complementares recebeu um retorno do coordenador.</p>
+
+    <div style="background: #f1f3f5; padding: 15px; border-radius: 6px; margin: 20px 0;">
+        <p><strong>Título:</strong> <span th:text="${solicitacaoTitulo}"></span></p>
+        <p><strong>Curso:</strong> <span th:text="${cursoNome}"></span></p>
+        <p><strong>Tipo de Hora Complementar:</strong> <span th:text="${tipoHoraNome}"></span></p>
+        <p><strong>Horas solicitadas:</strong> <span th:text="${horasSolicitadas}"></span></p>
+        <p th:if="${status == 'DEFERIDO'}"><strong>Horas deferidas:</strong> <span th:text="${horasDeferidas}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${status}"></span></p>
+        <p th:if="${coordenadorNome != null}"><strong>Avaliado por:</strong> <span th:text="${coordenadorNome}"></span></p>
+    </div>
+
+    <div th:if="${status == 'INDEFERIDO' and justificativaCoordenador != null and !justificativaCoordenador.isEmpty()}" style="background: #fff5f5; border-left: 4px solid #e03131; padding: 15px; margin: 20px 0;">
+        <p><strong>Justificativa do coordenador:</strong></p>
+        <p th:text="${justificativaCoordenador}"></p>
+    </div>
+
+    <p style="margin-top: 30px;">
+        <a th:href="${baseUrl} + '/solicitacoes'" style="background-color: #2f9e44; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px;">Visualizar minhas solicitações</a>
+    </p>
+
+    <p style="margin-top: 40px; font-size: 12px; color: #868e96;">
+        Este é um e-mail automático. Por favor, não responda.<br/>
+        Sistema de Horas Complementares - IFRS
+    </p>
+</div>
+</body>
+</html>
