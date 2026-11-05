@@ -1,4 +1,4 @@
-# SIFRAC - Sistema IFRS de Registro de Atividades Complementares
+# SIFRAC - Sistema de Registro de Atividades Complementares
 
 📘 Documentação Completa – Spring Boot + LDAP + PostgreSQL
 
@@ -26,9 +26,9 @@ Este documento descreve tudo o que é necessário para:
 | Java           | 21+               |
 | Maven          | 3.9+              |
 | PostgreSQL     | 13+               |
-| LDAP           | OpenLDAP ou IFRS  |
-| Docker         | 20+               |
-| Docker Compose | 2+                |
+| LDAP           | OpenLDAP          |
+| Docker         | latest            |
+| Docker Compose | latest            |
 
 ---
 
@@ -46,7 +46,7 @@ docker-compose up -d
 **Serviços disponíveis:**
 
 - PostgreSQL: `localhost:5432` (banco: `sifrac`, usuário: `sifrac`)
-- LDAP local: `localhost:3890` (opcional, production usa LDAP do IFRS)
+- LDAP local: `localhost:3890` (opcional, em produção pode usar servidor LDAP institucional)
 - Mailpit SMTP: `localhost:1025` (UI: `localhost:8025`)
 
 ### ☕ Java
@@ -76,13 +76,13 @@ GRANT ALL PRIVILEGES ON DATABASE sifrac TO sifrac;
 
 ## 🗄️ Flyway: Estratégia recomendada
 
-### [!ERROR] Nunca:
+### Nunca:
 
 - Editar migration antiga já aplicada
 - Deletar migration aplicada em produção
 - Usar `hibernate.hbm2ddl.auto=update` em produção
 
-### [!WARNING] Evite:
+### Evite:
 
 `hibernate.hbm2ddl.auto=update` — isso destrói previsibilidade.
 
@@ -98,11 +98,11 @@ GRANT ALL PRIVILEGES ON DATABASE sifrac TO sifrac;
 
 ## 🔐 LDAP (estrutura padrão)
 
-### Production: LDAP do IFRS
+### Produção: LDAP Institucional
 
 ```
-ldap://ldap.ifrs.edu.br:389
-Base DN: dc=ifrs,dc=edu,dc=br
+ldap://ldap.seu-dominio.com:389
+Base DN: dc=seu-dominio,dc=com
 ```
 
 ### Development: LLDAP local (opcional)
@@ -141,9 +141,9 @@ POSTGRES_DB=sifrac
 POSTGRES_USER=sifrac
 POSTGRES_PASSWORD=sua_senha_segura
 
-# LDAP (production usa IFRS)
-LDAP_URL=ldap://ldap.ifrs.edu.br:389
-LDAP_BASE_DN=dc=ifrs,dc=edu,dc=br
+# LDAP (em produção pode usar servidor institucional)
+LDAP_URL=ldap://ldap.seu-dominio.com:389
+LDAP_BASE_DN=dc=seu-dominio,dc=com
 
 # SMTP
 SMTP_HOST=smtp.gmail.com
@@ -187,7 +187,7 @@ java -jar target/hcomplementares-0.0.1-SNAPSHOT.jar
 
 ## 🔐 Autenticação
 
-O sistema usa **LDAP do IFRS** para autenticação.
+O sistema usa **LDAP** para autenticação.
 
 ### Roles padrão
 
@@ -195,7 +195,7 @@ O sistema usa **LDAP do IFRS** para autenticação.
 |---------------|-------------------|
 | alunos        | ALUNO             |
 | coordenadores | COORDENADOR       |
-| administradores | ADMINISTRADOR   |
+| admins        | ADMINISTRADOR     |
 
 ### 👥 Perfis de usuário
 
@@ -289,8 +289,8 @@ sifrac/
 
 ## ℹ️ Sobre
 
-**SIFRAC** - Sistema IFRS de Registro de Atividades Complementares
+**SIFRAC** - Sistema de Registro de Atividades Complementares
 
-Desenvolvido para gerenciar solicitações de horas complementares dos alunos do IFRS.
+Desenvolvido para gerenciar solicitações de horas complementares dos alunos.
 
 Repositório: https://github.com/thiagoopg/sifrac
