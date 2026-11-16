@@ -2,6 +2,8 @@
 .opencode/
 graphify-out/
 .playwright-mcp/
+opencode.json
+**/opencode.json
 
 # ===== WINDOWS METADATA =====
 *:Zone.Identifier
