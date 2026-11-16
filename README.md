@@ -2,7 +2,7 @@
 
 📘 Documentação Completa – Spring Boot + LDAP + PostgreSQL
 
-⚙️ Guia de configuração: para entender como configurar e-mails, SMTP, LDAP, banco de dados e demais opções, consulte o guia completo em docs/CONFIGURACAO.md.
+⚙️ Guia de configuração detalhado: consulte `docs/CONFIGURACAO.md` para e-mails, SMTP, LDAP, banco de dados e demais opções.
 
 ---
 
@@ -25,29 +25,161 @@ Este documento descreve tudo o que é necessário para:
 |----------------|-------------------|
 | Java           | 21+               |
 | Maven          | 3.9+              |
+| Node.js        | 18+               |
+| npm            | 9+                |
 | PostgreSQL     | 13+               |
-| LDAP           | OpenLDAP          |
+| LDAP           | OpenLDAP ou compatível |
 | Docker         | latest            |
 | Docker Compose | latest            |
 
 ---
 
-## 📦 Instalação
+## 🚀 Primeiros Passos (do zero)
 
-### 🐳 Docker Compose (recomendado)
+Se você já tem um servidor LDAP (institucional ou próprio), siga esta ordem:
 
-Suba todos os serviços com um comando:
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/thiagoopg/sifrac.git
+cd sifrac
+```
+
+### 2. Configurar variáveis de ambiente
+
+No backend, copie o exemplo e edite com suas credenciais:
 
 ```bash
 cd backend
+cp .env.example .env
+```
+
+Edite o arquivo `.env`:
+
+```bash
+# Banco de dados
+POSTGRES_DB=sifrac
+POSTGRES_USER=sifrac
+POSTGRES_PASSWORD=sua_senha_segura
+
+# LDAP (seu servidor institucional)
+LDAP_URL=ldap://ldap.seu-dominio.com:389
+LDAP_BASE_DN=dc=seu-dominio,dc=com
+LDAP_MANAGER_DN=cn=admin,dc=seu-dominio,dc=com
+LDAP_MANAGER_PASSWORD=sua_senha_ldap
+
+# SMTP para envio de e-mails
+SMTP_HOST=smtp.seu-servidor.com
+SMTP_PORT=587
+SMTP_USERNAME=seu-email@dominio.com
+SMTP_PASSWORD=sua_senha_app
+SMTP_FROM=no-reply@dominio.com
+
+# URL base da aplicação
+APP_BASE_URL=http://localhost:8080
+```
+
+> 💡 **Variáveis obrigatórias:** `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `LDAP_URL`, `LDAP_BASE_DN`.  
+> As demais têm valores padrão ou são opcionais.
+
+### 3. Subir serviços auxiliares (Docker)
+
+No backend:
+
+```bash
 docker-compose up -d
 ```
 
-**Serviços disponíveis:**
+Isso sobe:
+- **PostgreSQL:** `localhost:5432` (banco: `sifrac`, usuário: `sifrac`)
+- **Mailpit SMTP:** `localhost:1025` (UI: `localhost:8025`) — para testar e-mails localmente
+- **LDAP local:** `localhost:3890` (opcional — só se não tiver LDAP institucional)
 
-- PostgreSQL: `localhost:5432` (banco: `sifrac`, usuário: `sifrac`)
-- LDAP local: `localhost:3890` (opcional, em produção pode usar servidor LDAP institucional)
-- Mailpit SMTP: `localhost:1025` (UI: `localhost:8025`)
+### 4. Rodar o backend
+
+Novo terminal, dentro de `backend/`:
+
+```bash
+mvn spring-boot:run
+```
+
+O backend inicia em: **http://localhost:8080**
+
+### 5. Rodar o frontend
+
+Novo terminal, dentro de `frontend/`:
+
+```bash
+npm install
+npm run dev
+```
+
+O frontend inicia em: **http://localhost:5173**
+
+### 6. Acessar o sistema
+
+| Serviço | URL |
+|---------|-----|
+| Frontend (Vue 3) | http://localhost:5173 |
+| Backend API | http://localhost:8080 |
+| Mailpit (e-mails de teste) | http://localhost:8025 |
+
+---
+
+## 🔐 LDAP e Autenticação
+
+O sistema autentica via **LDAP**. O perfil de cada usuário é definido da seguinte forma:
+
+| Perfil | Como é definido |
+|--------|-----------------|
+| **ALUNO** | Automático via LDAP (`OU=Discente` no DN) — criado no banco no primeiro login |
+| **COORDENADOR** | **Manual** — cadastrado pelo administrador no banco |
+| **ADMIN_CAMPUS** | **Manual** — cadastrado pelo administrador no banco |
+| **ADMINISTRADOR** | **Manual** — cadastrado pelo administrador no banco |
+
+### Regras importantes:
+
+- **Alunos**: são criados automaticamente no primeiro login se o DN contiver `OU=Discente`.
+- **Docentes/Coordenadores/Admins**: não são criados automaticamente. O admin do sistema deve cadastrá-los manualmente com o perfil correto. O LDAP apenas valida a senha.
+
+---
+
+## ⚙️ Configuração
+
+### 📄 Arquivo `.env`
+
+Crie o arquivo na raiz do backend:
+
+```bash
+cd backend
+cp .env.example .env
+```
+
+Variáveis disponíveis:
+
+| Variável | Obrigatório | Descrição | Exemplo |
+|----------|-------------|-----------|---------|
+| `POSTGRES_DB` | ✅ | Nome do banco | `sifrac` |
+| `POSTGRES_USER` | ✅ | Usuário do banco | `sifrac` |
+| `POSTGRES_PASSWORD` | ✅ | Senha do banco | `sua_senha` |
+| `LDAP_URL` | ✅ | URL do servidor LDAP | `ldap://ldap.empresa.com:389` |
+| `LDAP_BASE_DN` | ✅ | Base DN do LDAP | `dc=empresa,dc=com` |
+| `LDAP_MANAGER_DN` | ❌ | DN do administrador LDAP | `cn=admin,dc=empresa,dc=com` |
+| `LDAP_MANAGER_PASSWORD` | ❌ | Senha do admin LDAP | `senha123` |
+| `SMTP_HOST` | ❌ | Servidor SMTP | `smtp.gmail.com` |
+| `SMTP_PORT` | ❌ | Porta SMTP | `587` |
+| `SMTP_USERNAME` | ❌ | Usuário SMTP | `email@dominio.com` |
+| `SMTP_PASSWORD` | ❌ | Senha SMTP | `senha_app` |
+| `SMTP_FROM` | ❌ | Remetente dos e-mails | `no-reply@dominio.com` |
+| `APP_BASE_URL` | ❌ | URL base da aplicação | `http://localhost:8080` |
+
+### 🚫 NUNCA versione `.env`
+
+Use secrets em produção!
+
+---
+
+## 📦 Instalação detalhada
 
 ### ☕ Java
 
@@ -72,21 +204,19 @@ CREATE USER sifrac WITH ENCRYPTED PASSWORD 'sifrac123';
 GRANT ALL PRIVILEGES ON DATABASE sifrac TO sifrac;
 ```
 
----
+### 🗄️ Flyway: Estratégia recomendada
 
-## 🗄️ Flyway: Estratégia recomendada
-
-### Nunca:
+#### Nunca:
 
 - Editar migration antiga já aplicada
 - Deletar migration aplicada em produção
 - Usar `hibernate.hbm2ddl.auto=update` em produção
 
-### Evite:
+#### Evite:
 
 `hibernate.hbm2ddl.auto=update` — isso destrói previsibilidade.
 
-### Fluxo ideal:
+#### Fluxo ideal:
 
 1. Altera entidade/modelo
 2. Cria migration SQL
@@ -96,71 +226,9 @@ GRANT ALL PRIVILEGES ON DATABASE sifrac TO sifrac;
 
 ---
 
-## 🔐 LDAP (estrutura padrão)
-
-### Produção: LDAP Institucional
-
-```
-ldap://ldap.seu-dominio.com:389
-Base DN: dc=seu-dominio,dc=com
-```
-
-### Development: LLDAP local (opcional)
-
-```
-localhost:3890
-Base DN: dc=example,dc=com
-```
-
-**Estrutura padrão:**
-```
-dc=example,dc=com
- ├── ou=people
- │    └── uid=user1
- └── ou=groups
-      └── cn=alunos
-```
-
----
-
-## ⚙️ Configuração
-
-### 📄 Arquivo `.env`
-
-Crie um arquivo `.env` na raiz do backend:
-
-```bash
-cp backend/.env.example backend/.env
-```
-
-Edite com suas credenciais:
-
-```bash
-# Banco
-POSTGRES_DB=sifrac
-POSTGRES_USER=sifrac
-POSTGRES_PASSWORD=sua_senha_segura
-
-# LDAP (em produção pode usar servidor institucional)
-LDAP_URL=ldap://ldap.seu-dominio.com:389
-LDAP_BASE_DN=dc=seu-dominio,dc=com
-
-# SMTP
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USERNAME=seu-email@gmail.com
-SMTP_PASSWORD=sua_senha_app
-```
-
-### 🚫 NUNCA versione `.env`
-
-Use secrets em produção!
-
----
-
 ## 🚀 Execução
 
-### ▶️ Modo desenvolvimento
+### ▶️ Modo desenvolvimento (backend)
 
 ```bash
 cd backend
@@ -183,28 +251,15 @@ mvn clean package
 java -jar target/hcomplementares-0.0.1-SNAPSHOT.jar
 ```
 
----
+### 🎨 Frontend
 
-## 🔐 Autenticação
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-O sistema usa **LDAP** para autenticação.
-
-### Roles padrão
-
-| Grupo LDAP    | Role no Sistema   |
-|---------------|-------------------|
-| alunos        | ALUNO             |
-| coordenadores | COORDENADOR       |
-| admins        | ADMINISTRADOR     |
-
-### 👥 Perfis de usuário
-
-| Perfil       | Login teste    | Descrição                      |
-|--------------|----------------|--------------------------------|
-| ADMINISTRADOR | `admin`       | Acesso total ao sistema        |
-| ADMIN_CAMPUS  | `coordpoa`     | Gerencia solicitações do campus|
-| COORDENADOR   | `marceloschmitt` | Avalia solicitações do curso  |
-| ALUNO         | `thiagolima`   | Submete solicitações           |
+Acesse: **http://localhost:5173**
 
 ---
 
@@ -226,7 +281,7 @@ mvn test
 **52 testes automatizados** cobrindo:
 
 - EmailService
-- EmailResumoPendenciasService  
+- EmailResumoPendenciasService
 - AvaliacaoAlunoListener
 - ResumoPendenciasListener
 - Repository e Services
@@ -238,17 +293,19 @@ mvn test
 ### LDAP não conecta
 
 Verifique:
-- URL do LDAP
-- DN base
-- Senha
-- Porta aberta
+- URL do LDAP (`LDAP_URL` no `.env`)
+- DN base (`LDAP_BASE_DN`)
+- Senha do usuário LDAP
+- Porta 389 aberta
+- Usuário existe no LDAP
 
 ### Banco falhando
 
 Verifique:
-- Banco existe
-- Credenciais corretas
+- Banco existe (`CREATE DATABASE sifrac`)
+- Credenciais corretas no `.env`
 - Porta 5432 aberta
+- PostgreSQL rodando
 
 ### E-mails não enviados
 
@@ -257,6 +314,12 @@ Verifique:
 - Mailpit rodando (`docker-compose ps`)
 - Porta 1025 liberada
 
+### Usuário não consegue entrar
+
+- Aluno: verifique se `OU=Discente` está no DN do LDAP
+- Coordenador/Admin: verifique se foi cadastrado manualmente pelo admin do sistema
+- Usuário inativo: verifique se está ativo no banco
+
 ---
 
 ## 🧠 Boas práticas
@@ -264,7 +327,7 @@ Verifique:
 - ✅ Nunca versionar `.env`
 - ✅ Usar secrets em produção
 - ✅ Evitar `hibernate update` em produção
-- ✅ sempre criar migration para mudanças no banco
+- ✅ Sempre criar migration para mudanças no banco
 - ✅ Testar localmente com Docker antes de subir
 
 ---
