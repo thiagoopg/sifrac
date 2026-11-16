@@ -2,7 +2,7 @@
 
 📘 Documentação Completa – Spring Boot + LDAP + PostgreSQL
 
-⚙️ Guia de configuração detalhado: consulte `docs/CONFIGURACAO.md` para e-mails, SMTP, LDAP, banco de dados e demais opções.
+⚙️ Guia de configuração detalhado: consulte `docs/configuracao_email.md` para e-mails, SMTP, `docs/instalacao.md` para instalação e `docs/problemas.md` para troubleshooting.
 
 ---
 
@@ -343,9 +343,9 @@ sifrac/
  ├── admin/            # Spring Boot Admin
  ├── frontend/         # Vue 3 + Vite
  └── docs/             # Documentação
-      ├── INSTALACAO.md
-      ├── CONFIGURACAO_EMAIL.md
-      └── TROUBLESHOOTING.md
+      ├── instalacao.md
+      ├── configuracao_email.md
+      └── problemas.md
 ```
 
 ---
