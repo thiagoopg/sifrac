@@ -8,29 +8,29 @@ Problemas comuns e como resolvê-los.
 
 ### ❌ Erro: "Failed to connect to ldap://localhost:3890"
 
-**Causa**: O LLDAP não está rodando.
+**Causa**: O LDAP não está configurado ou não está rodando.
 
 **Solução**:
 ```bash
 cd backend
 docker-compose up -d
-docker ps  # Verificar se hcomplementares-ldap está UP
+docker ps  # Verificar se os containers estão UP
 ```
 
 ---
 
-### ❌ Erro: "Address already in use: bind" (porta 8081)
+### ❌ Erro: "Address already in use: bind" (porta 8080)
 
-**Causa**: Outro processo está usando a porta 8081.
+**Causa**: Outro processo está usando a porta 8080.
 
 **Solução**:
 ```bash
 # Linux/Mac: encontrar e matar o processo
-lsof -i :8081
+lsof -i :8080
 kill -9 <PID>
 
 # Windows
-netstat -ano | findstr :8081
+netstat -ano | findstr :8080
 taskkill /PID <PID> /F
 ```
 
@@ -61,11 +61,7 @@ mvn spring-boot:run | grep Flyway
 # Deve mostrar: "Successfully applied X migrations"
 ```
 
-Se o Flyway não executar, delete o banco H2 e reinicie:
-```bash
-rm -rf ~/hcomplementares.mv.db  # Se usar H2 em arquivo
-# Reinicie o backend
-```
+Se o Flyway não executar, verifique se o PostgreSQL está rodando e reinicie o backend.
 
 ---
 
@@ -78,12 +74,12 @@ rm -rf ~/hcomplementares.mv.db  # Se usar H2 em arquivo
 **Solução**:
 1. Verifique se o backend está rodando:
 ```bash
-curl http://localhost:8081/actuator/health
+curl http://localhost:8080/actuator/health
 ```
 
 2. Verifique o arquivo `.env` do frontend:
 ```env
-VITE_API_BASE_URL=http://localhost:8081/api/v1
+VITE_API_BASE_URL=http://localhost:8080/api/v1
 ```
 
 3. Reinicie o frontend:
@@ -118,7 +114,7 @@ taskkill /PID <PID> /F
 **Solução**:
 Verifique se o arquivo `.env` existe e está correto:
 ```env
-VITE_API_BASE_URL=http://localhost:8081/api/v1
+VITE_API_BASE_URL=http://localhost:8080/api/v1
 ```
 
 ---
@@ -229,15 +225,11 @@ ldapsearch -x -H ldap://localhost:3890 -b "dc=example,dc=com"
 
 ### ❌ Sistema lento ou travando
 
-**Causa**: H2 em memória pode ficar lento com muitos dados.
+**Causa**: Banco de dados sem recursos ou conexões pendentes.
 
 **Solução**:
-```bash
-# Limpar banco H2 (CUIDADO: apaga todos os dados)
-# Parar o backend, depois:
-rm -rf ~/hcomplementares.mv.db
-# Reiniciar o backend
-```
+- Verifique se o PostgreSQL está rodando corretamente
+- Reinicie o backend se necessário
 
 ---
 
@@ -272,7 +264,7 @@ npm run dev
    - 3890 (LDAP)
    - 1025 (SMTP)
    - 8025 (Mailpit UI)
-   - 8081 (Backend)
+   - 8080 (Backend)
    - 5173 (Frontend)
 
 2. Reinicie tudo do zero:

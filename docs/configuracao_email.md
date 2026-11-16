@@ -38,7 +38,7 @@ Nenhuma senha deve ser versionada no repositorio.
 | `MAIL_SMTP_STARTTLS_REQUIRED` | `false` | Exige STARTTLS |
 | `MAIL_SMTP_SSL` | `false` | Habilita SSL direto (porta 465) |
 | `MAIL_TIMEOUT` | `5000` | Timeout de conexao/leitura/escrita (ms) |
-| `MAIL_FROM` | `no-reply@hcomplementares.ifrs.edu.br` | Remetente |
+| `MAIL_FROM` | `no-reply@seudominio.com` | Remetente |
 | `MAIL_ENABLED` | `false` | Liga/desliga o envio automatico |
 | `MAIL_AVALIACAO_ALUNO_ENABLED` | `false` | Envia retorno ao aluno |
 | `MAIL_RESUMO_PENDENCIAS_ENABLED` | `false` | Envia resumo de pendencias ao coordenador |
@@ -76,16 +76,16 @@ a aplicacao sem recompilar nada.
 
 ```bash
 export SPRING_PROFILES_ACTIVE=prod
-export MAIL_HOST=smtp.ifrs.edu.br
+export MAIL_HOST=smtp.seudominio.com
 export MAIL_PORT=587
-export MAIL_USERNAME=usuario.smtp@ifrs.edu.br
+export MAIL_USERNAME=usuario.smtp@seudominio.com
 export MAIL_PASSWORD='senha'
 export MAIL_SMTP_AUTH=true
 export MAIL_SMTP_STARTTLS=true
 export MAIL_SMTP_STARTTLS_REQUIRED=true
 export MAIL_SMTP_SSL=false
-export MAIL_FROM=no-reply@hcomplementares.ifrs.edu.br
-export APP_BASE_URL=https://horascomplementares.ifrs.edu.br
+export MAIL_FROM=no-reply@seudominio.com
+export APP_BASE_URL=https://app.seudominio.com
 
 java -jar hcomplementares.jar
 ```
@@ -138,7 +138,7 @@ mvn spring-boot:run
 ```
 
 O Mailpit **captura** as mensagens localmente; ele **nao entrega** em caixas
-externas como `@aluno.poa.ifrs.edu.br`. Para entrega real, use o SMTP
+externas como `@aluno.seudominio.com`. Para entrega real, use o SMTP
 institucional ou um Gmail temporario.
 
 ---
@@ -150,16 +150,16 @@ de teste:
 
 ```bash
 # Login (cookie de sessao)
-curl -c /tmp/cookies.txt -X POST http://localhost:8081/api/v1/login \
+curl -c /tmp/cookies.txt -X POST http://localhost:8080/api/v1/login \
   -d 'username=admin&password=senha123'
 
 # Envia para um destinatario especifico
-curl -b /tmp/cookies.txt -X POST http://localhost:8081/api/v1/admin/email/teste \
+curl -b /tmp/cookies.txt -X POST http://localhost:8080/api/v1/admin/email/teste \
   -H 'Content-Type: application/json' \
-  -d '{"destinatario":"2024009471@aluno.poa.ifrs.edu.br"}'
+  -d '{"destinatario":"usuario@seudominio.com"}'
 
 # Ou sem corpo: envia para o e-mail do administrador autenticado
-curl -b /tmp/cookies.txt -X POST http://localhost:8081/api/v1/admin/email/teste
+curl -b /tmp/cookies.txt -X POST http://localhost:8080/api/v1/admin/email/teste
 ```
 
 Resposta de sucesso:
@@ -168,7 +168,7 @@ Resposta de sucesso:
 {
   "sucesso": true,
   "mensagem": "E-mail de teste enviado com sucesso. Verifique a caixa de entrada.",
-  "destinatario": "2024009471@aluno.poa.ifrs.edu.br"
+  "destinatario": "usuario@seudominio.com"
 }
 ```
 
@@ -178,7 +178,7 @@ Resposta de falha (exemplo):
 {
   "sucesso": false,
   "mensagem": "Falha ao enviar o e-mail de teste: MailAuthenticationException - ...",
-  "destinatario": "2024009471@aluno.poa.ifrs.edu.br"
+  "destinatario": "usuario@seudominio.com"
 }
 ```
 

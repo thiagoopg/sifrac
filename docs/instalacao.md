@@ -21,7 +21,7 @@ Instale as ferramentas abaixo:
 
 ```
 tcc/
-├── backend/     # API Java (porta 8081)
+├── backend/     # API Java (porta 8080)
 ├── frontend/    # Frontend Vue (porta 5173)
 ├── admin/       # Spring Boot Admin (porta 8080)
 └── docs/        # Documentação
@@ -34,8 +34,7 @@ tcc/
 O sistema precisa de dois serviços que rodam em container:
 
 - **Mailpit**: Servidor SMTP para capturar e-mails enviados durante desenvolvimento
-
-**Nota**: O LDAP é o do IFRS (real), não precisa rodar nada localmente para autenticação.
+- **PostgreSQL**: Banco de dados da aplicação
 
 ### 3.1 Subir o Mailpit
 
@@ -65,10 +64,10 @@ Crie um arquivo `.env` na pasta `backend/`:
 ```bash
 # backend/.env
 
-# LDAP do IFRS (produção)
-LDAP_URL="ldap://ldap.ifrs.edu.br"
-LDAP_BASE_DN="dc=ifrs,dc=edu,dc=br"
-LDAP_ADMIN_DN="cn=admin,dc=ifrs,dc=edu,dc=br"
+# LDAP institucional (produção)
+LDAP_URL="ldap://ldap.seu-dominio.com:389"
+LDAP_BASE_DN="dc=seu-dominio,dc=com"
+LDAP_ADMIN_DN="cn=admin,dc=seu-dominio,dc=com"
 LDAP_ADMIN_PASS="senha-do-admin-ldap"
 LDAP_SEARCH_BASE_DN="ou=usuarios"
 LDAP_USER_FILTER="(uid={0})"
@@ -89,7 +88,7 @@ MAIL_HEALTH_ENABLED="false"
 ```
 
 ⚠️ **Importante**: 
-- As configurações de LDAP acima são exemplo. Solicite as credenciais reais ao setor de TI do IFRS.
+- As configurações de LDAP acima são exemplo. Solicite as credenciais reais ao setor de TI.
 - Esse arquivo `.env` é apenas para desenvolvimento. Não versione no Git com senhas reais.
 
 ### 4.2 Rodar o backend
@@ -100,12 +99,12 @@ source .env
 mvn spring-boot:run
 ```
 
-O backend estará disponível em: http://localhost:8081
+O backend estará disponível em: http://localhost:8080
 
 ### 4.3 Verificar se está funcionando
 
 ```bash
-curl http://localhost:8081/actuator/health
+curl http://localhost:8080/actuator/health
 # Resposta: {"status":"UP"}
 ```
 
@@ -125,7 +124,7 @@ npm install
 Crie o arquivo `.env` na pasta `frontend/`:
 
 ```env
-VITE_API_BASE_URL=http://localhost:8081/api/v1
+VITE_API_BASE_URL=http://localhost:8080/api/v1
 ```
 
 ### 5.3 Rodar o frontend
@@ -141,9 +140,9 @@ O frontend estará disponível em: http://localhost:5173
 
 ## 6. Autenticação com LDAP real
 
-O sistema usa o **LDAP do IFRS** para autenticação. Os usuários são autenticados com suas credenciais institucionais.
+O sistema usa **LDAP institucional** para autenticação. Os usuários são autenticados com suas credenciais.
 
-**Nota para produção**: Solicite ao setor de TI do IFRS:
+**Nota para produção**: Solicite ao setor de TI:
 - Endereço correto do servidor LDAP
 - Credenciais de acesso (se necessário)
 - Base DN e filtro de usuários
@@ -152,7 +151,7 @@ O sistema usa o **LDAP do IFRS** para autenticação. Os usuários são autentic
 
 ## LLDAP para desenvolvimento (opcional)
 
-Se quiser testar localmente sem depender do LDAP do IFRS, pode usar o LLDAP simulado:
+Se quiser testar localmente sem depender do LDAP institucional, pode usar o LLDAP simulado:
 
 1. Subir o LLDAP:
 ```bash
@@ -226,5 +225,4 @@ cd frontend && npm run build
 
 ## Próximos passos
 
-- Configure o SMTP real para produção (veja [CONFIGURACAO_EMAIL.md](CONFIGURACAO_EMAIL.md))
-- Em caso de problemas, consulte [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+- Configure o SMTP real para produção (veja [CONFIGURACAO_EMAIL.md](configuracao_email.md))
